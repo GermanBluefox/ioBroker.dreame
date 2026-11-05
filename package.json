@@ -22,12 +22,12 @@
   },
   "dependencies": {
     "@iobroker/adapter-core": "^3.4.3",
-    "axios": "^1.20.0",
+    "axios": "^1.21.0",
     "axios-retry": "^4.5.0",
     "crypto-js": "^4.2.0",
-    "json2iob": "^2.6.26",
-    "mqtt": "^5.16.0",
-    "pako": "^3.0.2"
+    "json2iob": "^2.6.28",
+    "mqtt": "^5.16.1",
+    "pako": "^3.0.3"
   },
   "optionalDependencies": {
     "canvas": "^3.2.3"
@@ -39,14 +39,14 @@
     "@alcalzone/release-script-plugin-manual-review": "^5.2.0",
     "@eslint/eslintrc": "^3.3.7",
     "@eslint/js": "^10.0.1",
-    "@iobroker/testing": "^6.2.2",
+    "@iobroker/testing": "^6.3.1",
     "@tsconfig/node22": "^22.0.6",
-    "@types/node": "^22.20.4",
-    "eslint": "^10.11.0",
+    "@types/node": "^22.20.5",
+    "eslint": "^10.14.0",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-prettier": "^5.5.6",
-    "globals": "^17.12.0",
-    "prettier": "^3.9.8",
+    "eslint-plugin-prettier": "^5.5.7",
+    "globals": "^17.14.0",
+    "prettier": "^3.9.10",
     "typescript": "~6.0.3"
   },
   "main": "main.js",

@@ -360,6 +360,7 @@ The adapter brings its own live map: robot position and heading, cleaning trail,
 | Admin tab | "Dreame" in the admin's left-hand menu. |
 | Devices app | The "Dreame robot" tile for ioBroker.devices: status or map on the tile, the full view in a dialog. |
 | vis-2 | The "Dreame robot" widget: status or map with the full view in a dialog, or the full view in the widget itself. |
+| Aura and other hosts | The web component `<iob-dreame-robot>` - see [Web component](#web-component). |
 
 #### Setup
 
@@ -410,6 +411,20 @@ http://<your-iobroker>:8082/dreame/?gear=0&cfg=<blob>
 ```
 
 The link only affects that browser tab or embed - it never overwrites the settings stored for the robot. Links made with the previous web interface keep working.
+
+#### Web component
+
+The adapter also offers the robot as an ioBroker web component (`common.webComponents`, `admin/webcomponents/dreame-robot.json`), for Aura and every other host that shows web components. vis-2 and the devices app keep showing their own "Dreame robot" widget.
+
+`<iob-dreame-robot>` shows the robot's status - state, battery, cleaning progress - or the map of a floor, the same 2D map as the tile; with "Automatic" the map where the box is large enough and the status elsewhere. Start or pause, stop and back to the dock are buttons on the tile. A click opens a larger view in a dialog: the map with the status, battery, progress and area beside it, and the same buttons. 3D, room selection and the other panels stay in the full view (web page, admin tab, the native widgets).
+
+| Setting | Description |
+| --- | --- |
+| Robot | The device `dreame.<n>.<did>`; empty: the first robot of `dreame.0` |
+| Display | Automatic, Status or Map |
+| Map floor | A floor channel `dreame.<n>.<did>.map.maps.<map>`; empty: the floor the robot is on. Any other floor is shown as the still picture the adapter stores |
+| Caption | Automatic (robot, with the floor where one is picked), own text, or none |
+| Show buttons | Start or pause, stop and dock on the tile, where it has room for them |
 
 ---
 
@@ -707,6 +722,7 @@ translations should be submitted as PRs against the respective
 - Added 3D view
 - Added Widgets for `vis-2` and `ioBroker.devices`
 - Added Admin tab for the adapter
+- (@GermanBluefox) Added web component `<iob-dreame-robot>` - status, map and controls of a robot - for Aura and other hosts (`common.webComponents`)
 
 ### 0.4.12 (2026-09-17)
 - Fix Issue #138: three robustness/functionality fixes for map handling on newer models with AES-encrypted map payloads (r2253c/w and similar). 1) A silent crash in the room-name fallback path (main.js): when the map file request failed, an unhandled TypeError showed up only as a generic error; now an early return with a clear debug message. 2) A model without an AES-IV table entry can never load its base map — this is now a persistent, recognizable condition (unsupportedMapModel) instead of the generic please-restart-the-adapter hint. 3) The old_map_data (piid 13) property, pushed specifically during active cleaning, could carry the same object_name-plus-AES-key format as the already-working piid 3 path, but was previously only logged as unimplemented and discarded; it now reuses the existing, already-verified decrypt pipeline (confirmed against the Home Assistant reference implementation), with a Debug-level log that masks the key material so it is safe to share in a public issue. Thanks to @luckyheiko for the detailed reports that made all three fixes possible.
